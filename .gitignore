@@ -1,0 +1,8 @@
+# Vercel
+.vercel
+.env*
+
+# Izvirni, nepomanjšani pasici (4,2 MB, na strani ju nič ne uporablja).
+# Če ju hočeš imeti v repozitoriju, pobriši ti dve vrstici.
+banner_2560 x 600_grafika 1.jpg
+banner_2560 x 600_ozadje 1.jpg

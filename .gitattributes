@@ -1,0 +1,6 @@
+# Enotni konci vrstic, da se diffi ne polnijo z lažnimi spremembami
+* text=auto eol=lf
+*.jpg binary
+*.png binary
+*.svg text eol=lf
+*.xlsx binary
