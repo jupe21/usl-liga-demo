@@ -40,13 +40,14 @@
 #usl-liga .usl-team.lost{opacity:.55}
 #usl-liga .usl-logo{width:62px;height:62px;flex:0 0 62px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;line-height:1}
 #usl-liga .usl-score{font-size:30px;font-weight:700;min-width:96px;font-variant-numeric:tabular-nums}
-#usl-liga .usl-score.time{font-size:20px;font-weight:600;color:var(--usl-muted)}
+#usl-liga .usl-score.time{color:var(--usl-muted)}
 #usl-liga .usl-sets{font-size:13px;color:var(--usl-muted);margin-top:8px}
 #usl-liga .usl-badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--usl-sand);color:#6b4b00;margin-top:8px}
 #usl-liga .usl-group{font-size:17px;font-weight:700;margin:18px 0 8px;color:var(--usl-dark)}
 #usl-liga .usl-wrap{overflow-x:auto}
 #usl-liga table{width:100%;border-collapse:collapse;font-size:14px;margin:0}
-#usl-liga th{background:var(--usl-dark);color:#fff;font-weight:700;padding:9px 6px;text-align:center;border:0}
+#usl-liga th{background:var(--usl-dark);color:#fff;font-weight:700;padding:7px 6px;text-align:center;vertical-align:middle;border:1px solid rgba(255,255,255,.2)}
+#usl-liga th.t{text-align:left}
 #usl-liga td{padding:8px 6px;border:0;border-bottom:1px solid var(--usl-line);text-align:center;font-variant-numeric:tabular-nums}
 #usl-liga td.t{text-align:left}
 #usl-liga td.t .usl-logo{width:36px;height:36px;flex-basis:36px;font-size:11px}
@@ -63,7 +64,6 @@
 #usl-liga .usl-team,#usl-liga .usl-team.home{flex-direction:column;gap:6px;text-align:center}
 #usl-liga .usl-logo{width:52px;height:52px;flex-basis:52px;font-size:14px}
 #usl-liga .usl-score{font-size:22px;min-width:64px}
-#usl-liga .usl-score.time{font-size:17px}
 #usl-liga .usl-tab{padding:9px 12px}
 #usl-liga .usl-body{padding:12px}
 #usl-liga .usl-nav{flex-basis:26px;font-size:22px}
@@ -308,9 +308,9 @@
     return Object.keys(T).map(function (k) { return T[k]; }).sort(function (x, y) {
       if (y.pts !== x.pts) return y.pts - x.pts;
       if (R.kolicnik) {
-        var kn = y.za * x.pr - x.za * y.pr;   // količnik nizov, navzkrižno množenje
+        var kn = kol(y.za, y.pr) - kol(x.za, x.pr);   // količnik nizov
         if (kn) return kn;
-        var kt = y.tz * x.tp - x.tz * y.tp;   // količnik točk v nizih
+        var kt = kol(y.tz, y.tp) - kol(x.tz, x.tp);   // količnik točk v nizih
         if (kt) return kt;
       } else {
         var d = (y.za - y.pr) - (x.za - x.pr);
@@ -348,9 +348,14 @@
                        : '<span class="usl-mv down" title="nazadoval">&#9660;</span>';
   }
 
-  function kolicnikStr(a, b) {
-    if (!b) return a ? '∞' : '–';
-    return (a / b).toFixed(2).replace('.', ',');
+  // Količnik po pravilniku: brez porazov je "max.", brez odigranega pa 0,
+  // da se ekipa brez tekem ne izenači z vsemi ostalimi.
+  function kol(a, b) { return b ? a / b : (a ? Infinity : 0); }
+  function kolStr(a, b, dec) {
+    if (!b) return a ? 'max.' : '0';
+    if (!a) return '0';
+    var v = a / b;
+    return (dec ? v.toFixed(dec) : String(Math.round(v * 1000) / 1000)).replace('.', ',');
   }
 
   function renderLestvica(list) {
@@ -359,18 +364,28 @@
       if (state.faza !== 'Vse' && fz !== state.faza) return;
       var rows = standings(list, fz), prej = prejsnjaMesta(list, fz);
       var crta = PLAYOFF > 0 && rows.length > PLAYOFF;
-      out += '<div class="usl-group">' + esc(fz) + '</div><div class="usl-wrap"><table><thead><tr>' +
-        '<th>#</th><th style="text-align:left">Ekipa</th><th>T</th><th>Z</th>' + (R.draw ? '<th>N</th>' : '') +
-        '<th>P</th><th>' + R.diff + '</th><th>' + (R.kolicnik ? 'Količnik' : '+/−') +
-        '</th><th>Točke</th></tr></thead><tbody>';
+      var glava = '<tr><th rowspan="2">Mesto</th><th rowspan="2" class="t">Ekipa</th>' +
+        '<th colspan="' + (R.draw ? 3 : 2) + '">Tekme</th>' +
+        (R.kolicnik
+          ? '<th colspan="3">Seti</th><th colspan="3">Točke v setih</th>'
+          : '<th colspan="3">' + R.diff + '</th>') +
+        '<th rowspan="2">Točke</th></tr><tr><th>Zmage</th>' +
+        (R.draw ? '<th>Neodločeno</th>' : '') + '<th>Porazi</th>' +
+        (R.kolicnik
+          ? '<th>Zmage</th><th>Porazi</th><th>Količnik</th><th>Zmage</th><th>Porazi</th><th>Količnik</th>'
+          : '<th>Dani</th><th>Prejeti</th><th>Razlika</th>') +
+        '</tr>';
+      out += '<div class="usl-group">' + esc(fz) + '</div><div class="usl-wrap"><table><thead>' + glava + '</thead><tbody>';
       rows.forEach(function (r, i) {
         var d = r.za - r.pr;
+        var celice = '<td>' + r.z + '</td>' + (R.draw ? '<td>' + r.n + '</td>' : '') + '<td>' + r.p + '</td>' +
+          (R.kolicnik
+            ? '<td>' + r.za + '</td><td>' + r.pr + '</td><td>' + kolStr(r.za, r.pr) + '</td>' +
+              '<td>' + r.tz + '</td><td>' + r.tp + '</td><td>' + kolStr(r.tz, r.tp, 3) + '</td>'
+            : '<td>' + r.za + '</td><td>' + r.pr + '</td><td>' + (d > 0 ? '+' : '') + d + '</td>');
         out += '<tr' + (crta && i === PLAYOFF - 1 ? ' class="cut"' : '') + '>' +
-          '<td class="r">' + premik(prej, r.k, i) + (i + 1) + '</td>' +
-          '<td class="t">' + krogec(r.k) + '</td>' +
-          '<td>' + r.t + '</td><td>' + r.z + '</td>' + (R.draw ? '<td>' + r.n + '</td>' : '') + '<td>' + r.p + '</td>' +
-          '<td>' + r.za + ':' + r.pr + '</td>' +
-          '<td>' + (R.kolicnik ? kolicnikStr(r.za, r.pr) : (d > 0 ? '+' : '') + d) + '</td>' +
+          '<td class="r">' + premik(prej, r.k, i) + (i + 1) + '.</td>' +
+          '<td class="t">' + krogec(r.k) + '</td>' + celice +
           '<td class="p">' + r.pts + '</td></tr>';
       });
       out += '</tbody></table></div>';
