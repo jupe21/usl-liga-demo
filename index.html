@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- TODO: kazni, lista strelcev -->
 <html lang="sl">
 <head>
 <meta charset="utf-8">
@@ -11,522 +10,1669 @@
 <style>body{margin:0;padding:24px 16px;background:#fff;color:#616161;font-family:"Ubuntu Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-size:14px;line-height:1.7}</style>
 </head>
 <body>
-<!-- USL liga – blok za WPBakery "Raw HTML" (kopiraj od tu do konca datoteke) -->
-<div id="usl-liga" data-sheet="1JStZjW54G6rn_6LgHocSUxJDWlfMIqBjkm_V6ni3dik" data-banner="banner-ozadje-2560.jpg"><div class="usl-msg">Nalaganje …</div></div>
+<!-- USL liga – blok za WPBakery "Raw HTML" (kopiraj od tu do konca datoteke)
+
+     Pasica je že nastavljena na poln naslov iz medijske knjižnice ssum.um.si,
+     zato pred lepljenjem ni treba popraviti ničesar. Če sliko kdaj zamenjaš,
+     popravi atribut data-banner spodaj; prazen atribut pomeni enobarvno modro glavo.
+
+     Google preglednica mora ostati deljena kot "Anyone with the link – Viewer",
+     sicer stran podatkov ne more prebrati.
+
+     ZA IZPOLNITI: v data-ekipe vpiši naslov strani s člani ekip, npr.
+     https://ssum.um.si/clani-ekip/ – takrat krogci ekip v razporedu in na
+     lestvicah postanejo povezave na to stran. Dokler je prazen, krogci niso
+     povezave in vse ostalo dela normalno naprej.
+-->
+
+<div
+  id="usl-liga"
+  data-sheet="1JStZjW54G6rn_6LgHocSUxJDWlfMIqBjkm_V6ni3dik"
+  data-banner="https://ssum.um.si/wp-content/uploads/2026/11/banner-ozadje-2560.jpg"
+  data-strelci="demo-strelci.csv"
+  data-kazni="demo-kazni.csv"
+  data-ekipe="ekipe.html"
+>
+  <div class="usl-msg">Nalaganje …</div>
+</div>
 <style>
-#usl-liga{--usl-blue:#016085;--usl-dark:#014a66;--usl-light:#a0ceef;--usl-sand:#ffde9c;--usl-bg:#f2f6f9;--usl-text:#2b2b2b;--usl-muted:#616161;--usl-line:#e2e8ed;color:var(--usl-text);max-width:1000px;margin:0 auto;line-height:1.5}
-#usl-liga *{box-sizing:border-box}
-#usl-liga button{font:inherit;cursor:pointer;margin:0}
-#usl-liga .usl-msg{text-align:center;padding:40px 16px;color:var(--usl-muted)}
-#usl-liga .usl-sports{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:0 0 16px}
-#usl-liga .usl-sport{border:1px solid var(--usl-blue);background:#fff;color:var(--usl-blue);border-radius:4px;padding:9px 18px;font-weight:700;font-size:15px}
-#usl-liga .usl-sport.on{background:var(--usl-blue);color:#fff}
-#usl-liga .usl-head{background:var(--usl-dark);background-size:cover;background-position:center;color:#fff;border-radius:6px 6px 0 0;padding:18px 12px 0}
-#usl-liga .usl-title{text-align:center;font-size:28px;font-weight:700;margin:0 0 2px;color:#fff}
-#usl-liga .usl-sub{text-align:center;font-size:12px;text-transform:uppercase;letter-spacing:1.5px;opacity:.85;margin:0 0 14px}
-#usl-liga .usl-nav-wrap{display:flex;align-items:stretch;gap:6px;padding:0 0 14px}
-#usl-liga .usl-nav{flex:0 0 32px;background:transparent;border:0;color:#fff;font-size:26px;line-height:1;padding:0;border-radius:4px}
-#usl-liga .usl-nav:hover:not([disabled]){background:rgba(255,255,255,.14)}
-#usl-liga .usl-nav[disabled]{opacity:.25;cursor:default}
-/* position:relative, da je trak offsetParent gumbov in centriranje izbranega kroga pravilno */
-#usl-liga .usl-rounds{position:relative;display:flex;gap:8px;flex:1 1 auto;overflow-x:auto;scroll-behavior:smooth;scrollbar-width:none;-ms-overflow-style:none}
-#usl-liga .usl-rounds::-webkit-scrollbar{display:none}
-#usl-liga .usl-round{flex:0 0 auto;min-width:104px;background:rgba(1,74,102,.45);border:1px solid rgba(255,255,255,.22);color:#fff;border-radius:4px;padding:8px 12px;text-align:center}
-#usl-liga .usl-round b{display:block;font-size:16px}
-#usl-liga .usl-round span{display:block;font-size:12px;opacity:.85}
-#usl-liga .usl-round.on{background:var(--usl-light);border-color:var(--usl-light);color:var(--usl-dark)}
-#usl-liga .usl-round.on span{opacity:1}
-#usl-liga .usl-tabs{display:flex;gap:2px}
-#usl-liga .usl-tab{background:transparent;border:0;color:#fff;opacity:.8;padding:10px 20px;font-weight:700;border-radius:4px 4px 0 0}
-#usl-liga .usl-tab.on{background:#fff;color:var(--usl-blue);opacity:1}
-#usl-liga .usl-body{background:#fff;border:1px solid var(--usl-line);border-top:0;border-radius:0 0 6px 6px;padding:16px}
-#usl-liga .usl-filter{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 6px}
-#usl-liga .usl-chip{border:1px solid var(--usl-blue);color:var(--usl-blue);background:#fff;border-radius:4px;padding:5px 14px;font-size:14px}
-#usl-liga .usl-chip.on{background:var(--usl-blue);color:#fff}
-#usl-liga .usl-day{text-align:center;color:var(--usl-blue);font-size:19px;font-weight:700;margin:22px 0 10px}
-#usl-liga .usl-match{background:var(--usl-bg);border-radius:6px;padding:14px 12px;margin:0 0 10px;text-align:center}
-#usl-liga .usl-meta{font-size:13px;color:var(--usl-muted)}
-#usl-liga .usl-meta strong{color:var(--usl-text)}
-#usl-liga .usl-row{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);align-items:center;gap:12px;margin-top:12px}
-#usl-liga .usl-team{display:flex;align-items:center;gap:10px;min-width:0}
-#usl-liga .usl-team.home{flex-direction:row-reverse;text-align:right}
-#usl-liga .usl-team.lost{opacity:.55}
-#usl-liga .usl-logo{width:62px;height:62px;flex:0 0 62px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:16px;font-weight:700;line-height:1}
-#usl-liga .usl-score{font-size:30px;font-weight:700;min-width:96px;font-variant-numeric:tabular-nums}
-#usl-liga .usl-score.time{color:var(--usl-muted)}
-#usl-liga .usl-sets{font-size:13px;color:var(--usl-muted);margin-top:8px}
-#usl-liga .usl-badge{display:inline-block;font-size:12px;font-weight:700;padding:3px 10px;border-radius:4px;background:var(--usl-sand);color:#6b4b00;margin-top:8px}
-#usl-liga .usl-group{font-size:17px;font-weight:700;margin:18px 0 8px;color:var(--usl-dark)}
-#usl-liga .usl-wrap{overflow-x:auto}
-#usl-liga table{width:100%;border-collapse:collapse;font-size:14px;margin:0}
-#usl-liga th{background:var(--usl-dark);color:#fff;font-weight:700;padding:7px 6px;text-align:center;vertical-align:middle;border:1px solid rgba(255,255,255,.2)}
-#usl-liga th.t{text-align:left}
-#usl-liga td{padding:8px 6px;border:0;border-bottom:1px solid var(--usl-line);text-align:center;font-variant-numeric:tabular-nums}
-#usl-liga td.t{text-align:left}
-#usl-liga td.t .usl-logo{width:36px;height:36px;flex-basis:36px;font-size:11px}
-#usl-liga td.p{font-weight:700;color:var(--usl-blue)}
-#usl-liga td.r{white-space:nowrap}
-#usl-liga .usl-mv{font-size:11px;margin-right:4px}
-#usl-liga .usl-mv.up{color:#1a9e4b}
-#usl-liga .usl-mv.down{color:#d93025}
-#usl-liga tr.cut td{border-bottom:2px dashed #d98b00}
-#usl-liga .usl-note{font-size:13px;color:var(--usl-muted);margin-top:14px}
-@media(max-width:640px){
-#usl-liga .usl-title{font-size:21px}
-#usl-liga .usl-sport{padding:7px 12px;font-size:13px}
-#usl-liga .usl-team,#usl-liga .usl-team.home{flex-direction:column;gap:6px;text-align:center}
-#usl-liga .usl-logo{width:52px;height:52px;flex-basis:52px;font-size:14px}
-#usl-liga .usl-score{font-size:22px;min-width:64px}
-#usl-liga .usl-tab{padding:9px 12px}
-#usl-liga .usl-body{padding:12px}
-#usl-liga .usl-nav{flex-basis:26px;font-size:22px}
-#usl-liga .usl-round{min-width:92px}
-#usl-liga table{font-size:12px}
-#usl-liga td.t .usl-logo{width:30px;height:30px;flex-basis:30px;font-size:10px}
-}
+  #usl-liga {
+    --usl-blue: #016085;
+    --usl-dark: #014a66;
+    --usl-light: #a0ceef;
+    --usl-sand: #ffde9c;
+    --usl-bg: #f2f6f9;
+    --usl-text: #2b2b2b;
+    --usl-muted: #616161;
+    --usl-line: #e2e8ed;
+    color: var(--usl-text);
+    max-width: 1000px;
+    margin: 0 auto;
+    line-height: 1.5;
+    font-family: var(--font-base, "Ubuntu Sans"), system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  }
+  #usl-liga * {
+    box-sizing: border-box;
+  }
+  #usl-liga button {
+    font: inherit;
+    cursor: pointer;
+    margin: 0;
+    appearance: none;
+    -webkit-appearance: none;
+  }
+  #usl-liga .usl-msg {
+    text-align: center;
+    padding: 40px 16px;
+    color: var(--usl-muted);
+  }
+  #usl-liga .usl-sports {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 0 16px;
+  }
+  #usl-liga .usl-sport {
+    border: 1px solid var(--usl-blue);
+    background: #fff;
+    color: var(--usl-blue);
+    border-radius: 4px;
+    padding: 9px 18px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+  #usl-liga .usl-sport.on {
+    background: var(--usl-blue);
+    color: #fff;
+  }
+  #usl-liga .usl-head {
+    background: var(--usl-dark);
+    background-size: cover;
+    background-position: center;
+    color: #fff;
+    border-radius: 6px 6px 0 0;
+    padding: 18px 12px 0;
+  }
+  #usl-liga .usl-title {
+    text-align: center;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 2px;
+    color: #fff;
+  }
+  #usl-liga .usl-sub {
+    text-align: center;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    opacity: 0.85;
+    margin: 0 0 14px;
+  }
+  #usl-liga .usl-nav-wrap {
+    display: flex;
+    align-items: stretch;
+    gap: 6px;
+    padding: 0 0 14px;
+  }
+  #usl-liga .usl-nav {
+    flex: 0 0 32px;
+    background: transparent;
+    border: 0;
+    color: #fff;
+    font-size: 26px;
+    line-height: 1;
+    padding: 0;
+    border-radius: 4px;
+  }
+  #usl-liga .usl-nav:hover:not([disabled]) {
+    background: rgba(255, 255, 255, 0.14);
+  }
+  #usl-liga .usl-nav[disabled] {
+    opacity: 0.25;
+    cursor: default;
+  }
+  /* position:relative, da je trak offsetParent gumbov in centriranje izbranega kroga pravilno */
+  #usl-liga .usl-rounds {
+    position: relative;
+    display: flex;
+    gap: 8px;
+    flex: 1 1 auto;
+    overflow-x: auto;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+  }
+  #usl-liga .usl-rounds::-webkit-scrollbar {
+    display: none;
+  }
+  #usl-liga .usl-round {
+    flex: 0 0 auto;
+    min-width: 104px;
+    background: rgba(1, 74, 102, 0.45);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    color: #fff;
+    border-radius: 4px;
+    padding: 8px 12px;
+    text-align: center;
+  }
+  #usl-liga .usl-round b {
+    display: block;
+    font-size: 16px;
+  }
+  #usl-liga .usl-round span {
+    display: block;
+    font-size: 12px;
+    opacity: 0.85;
+  }
+  #usl-liga .usl-round.on {
+    background: var(--usl-light);
+    border-color: var(--usl-light);
+    color: var(--usl-dark);
+  }
+  #usl-liga .usl-round.on span {
+    opacity: 1;
+  }
+  #usl-liga .usl-tabs {
+    display: flex;
+    gap: 2px;
+  }
+  #usl-liga .usl-tab {
+    background: transparent;
+    border: 0;
+    color: #fff;
+    opacity: 0.8;
+    padding: 10px 20px;
+    font-weight: 700;
+    border-radius: 4px 4px 0 0;
+  }
+  #usl-liga .usl-tab.on {
+    background: #fff;
+    color: var(--usl-blue);
+    opacity: 1;
+  }
+  #usl-liga .usl-body {
+    background: #fff;
+    border: 1px solid var(--usl-line);
+    border-top: 0;
+    border-radius: 0 0 6px 6px;
+    padding: 16px;
+  }
+  #usl-liga .usl-filter {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+    margin: 0 0 6px;
+  }
+  #usl-liga .usl-chip {
+    border: 1px solid var(--usl-blue);
+    color: var(--usl-blue);
+    background: #fff;
+    border-radius: 4px;
+    padding: 5px 14px;
+    font-size: 14px;
+  }
+  #usl-liga .usl-chip.on {
+    background: var(--usl-blue);
+    color: #fff;
+  }
+  #usl-liga .usl-day {
+    text-align: center;
+    color: var(--usl-blue);
+    font-size: 19px;
+    font-weight: 700;
+    margin: 22px 0 10px;
+  }
+  #usl-liga .usl-match {
+    background: var(--usl-bg);
+    border-radius: 6px;
+    padding: 14px 12px;
+    margin: 0 0 10px;
+    text-align: center;
+  }
+  #usl-liga .usl-meta {
+    font-size: 13px;
+    color: var(--usl-muted);
+  }
+  #usl-liga .usl-meta strong {
+    color: var(--usl-text);
+  }
+  #usl-liga .usl-row {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    align-items: center;
+    gap: 12px;
+    margin-top: 12px;
+  }
+  #usl-liga .usl-team {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+  #usl-liga .usl-team.home {
+    flex-direction: row-reverse;
+    text-align: right;
+  }
+  #usl-liga .usl-team.lost {
+    opacity: 0.55;
+  }
+  #usl-liga a.usl-logo {
+    text-decoration: none;
+    color: #fff;
+  }
+  #usl-liga .usl-logo {
+    width: 62px;
+    height: 62px;
+    flex: 0 0 62px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    line-height: 1;
+  }
+  #usl-liga .usl-score {
+    font-size: 30px;
+    font-weight: 700;
+    min-width: 96px;
+    font-variant-numeric: tabular-nums;
+  }
+  #usl-liga .usl-score.time {
+    color: var(--usl-muted);
+  }
+  #usl-liga .usl-sets {
+    font-size: 13px;
+    color: var(--usl-muted);
+    margin-top: 8px;
+  }
+  #usl-liga .usl-badge {
+    display: inline-block;
+    font-size: 12px;
+    font-weight: 700;
+    padding: 3px 10px;
+    border-radius: 4px;
+    background: var(--usl-sand);
+    color: #6b4b00;
+    margin-top: 8px;
+  }
+  #usl-liga .usl-group {
+    font-size: 17px;
+    font-weight: 700;
+    margin: 18px 0 8px;
+    color: var(--usl-dark);
+  }
+  #usl-liga .usl-wrap {
+    overflow-x: auto;
+  }
+  /* Tema ssum.um.si tabelam vsiljuje obrobe, odmike in barvo glave z !important
+   (table, table td, table th v style.css), zato se jo da prebiti samo enako. */
+  #usl-liga table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+    margin: 0;
+    border: 0 !important;
+  }
+  #usl-liga th {
+    background: var(--usl-dark);
+    color: #fff !important;
+    font-weight: 700;
+    font-size: inherit;
+    padding: 7px 6px !important;
+    text-align: center;
+    vertical-align: middle;
+    border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  }
+  #usl-liga th.t {
+    text-align: left;
+  }
+  #usl-liga td {
+    padding: 8px 6px !important;
+    border: 0 !important;
+    border-bottom: 1px solid var(--usl-line) !important;
+    text-align: center;
+    font-variant-numeric: tabular-nums;
+  }
+  #usl-liga td.t {
+    text-align: left;
+  }
+  #usl-liga td.t .usl-logo {
+    width: 36px;
+    height: 36px;
+    flex-basis: 36px;
+    font-size: 11px;
+  }
+  #usl-liga td.p {
+    font-weight: 700;
+    color: var(--usl-blue);
+  }
+  #usl-liga td.r {
+    white-space: nowrap;
+  }
+  #usl-liga .usl-mv {
+    font-size: 11px;
+    margin-right: 4px;
+  }
+  #usl-liga .usl-mv.up {
+    color: #1a9e4b;
+  }
+  #usl-liga .usl-mv.down {
+    color: #d93025;
+  }
+  #usl-liga tr.cut td {
+    border-bottom: 2px dashed #d98b00 !important;
+  }
+  #usl-liga .usl-player {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  #usl-liga .usl-ime {
+    font-weight: 600;
+    color: var(--usl-dark);
+  }
+  #usl-liga .usl-vec {
+    margin-top: 12px;
+    text-align: center;
+  }
+  #usl-liga .usl-note {
+    font-size: 13px;
+    color: var(--usl-muted);
+    margin-top: 14px;
+  }
+  @media (max-width: 640px) {
+    #usl-liga .usl-title {
+      font-size: 21px;
+    }
+    #usl-liga .usl-sport {
+      padding: 7px 12px;
+      font-size: 13px;
+    }
+    #usl-liga .usl-team,
+    #usl-liga .usl-team.home {
+      flex-direction: column;
+      gap: 6px;
+      text-align: center;
+    }
+    #usl-liga .usl-logo {
+      width: 52px;
+      height: 52px;
+      flex-basis: 52px;
+      font-size: 14px;
+    }
+    #usl-liga .usl-score {
+      font-size: 22px;
+      min-width: 64px;
+    }
+    #usl-liga .usl-tab {
+      padding: 9px 12px;
+    }
+    #usl-liga .usl-body {
+      padding: 12px;
+    }
+    #usl-liga .usl-nav {
+      flex-basis: 26px;
+      font-size: 22px;
+    }
+    #usl-liga .usl-round {
+      min-width: 92px;
+    }
+    #usl-liga table {
+      font-size: 12px;
+    }
+    #usl-liga td.t .usl-logo {
+      width: 30px;
+      height: 30px;
+      flex-basis: 30px;
+      font-size: 10px;
+    }
+  }
 </style>
 <script>
-(function () {
-  var root = document.getElementById('usl-liga');
-  if (!root) return;
-  if (root.dataset.uslInit) return;   // blok prilepljen dvakrat naj se ne zažene dvakrat
-  root.dataset.uslInit = '1';
+  (function () {
+    var root = document.getElementById("usl-liga");
+    if (!root) return;
+    if (root.dataset.uslInit) return; // blok prilepljen dvakrat naj se ne zažene dvakrat
+    root.dataset.uslInit = "1";
 
-  var SHEET = root.getAttribute('data-sheet');
-  var BANNER = root.getAttribute('data-banner') || '';
-  // Imena športov = imena listov v Google Sheetu
-  var SPORTS = ['Košarka', 'Nogomet', 'Odbojka M', 'Odbojka Ž'];
-  var TITLES = { 'Košarka': 'Košarka', 'Nogomet': 'Nogomet', 'Odbojka M': 'Odbojka (M)', 'Odbojka Ž': 'Odbojka (Ž)' };
+    var SHEET = root.getAttribute("data-sheet");
+    var BANNER = root.getAttribute("data-banner") || "";
+    // Datoteki iz medijske knjiznice ssum.um.si (CSV, izvozen iz Excela).
+    // Prazen atribut = zavihka ni. Na ssum.um.si vpisi poln naslov datoteke.
+    var STRELCI_URL = root.getAttribute("data-strelci") || "";
+    var KAZNI_URL = root.getAttribute("data-kazni") || "";
+    // Naslov strani s člani ekip; krogci ekip postanejo povezave nanjo.
+    // Na ssum.um.si vpiši naslov tiste strani, npr. /clani-ekip/.
+    // Prazen atribut = krogci niso povezave.
+    var EKIPE_URL = root.getAttribute("data-ekipe") || "";
+    // Lista strelcev se vodi samo za nogomet, kazni pa pri košarki in nogometu;
+    // pri odbojki zavihka Kazni ni.
+    var STRELCI_SPORT = "Nogomet";
+    var KAZNI_SPORTS = ["Košarka", "Nogomet"];
+    // Imena športov = imena listov v Google Sheetu
+    var SPORTS = ["Košarka", "Nogomet", "Odbojka M", "Odbojka Ž"];
+    var TITLES = {
+      Košarka: "Košarka",
+      Nogomet: "Nogomet",
+      "Odbojka M": "Odbojka (M)",
+      "Odbojka Ž": "Odbojka (Ž)",
+    };
 
-  // Na koliko časa se podatki štejejo za zastarele (ms)
-  var SVEZE = 120000;
+    // Na koliko časa se podatki štejejo za zastarele (ms)
+    var SVEZE = 120000;
 
-  // Točkovanje in razvrstitev po Pravilniku USL UM 2026/2027
-  // Odbojka: igra se na dva dobljena niza, zmaga 2:0 ali 2:1 prinese 2 točki.
-  function volley(a, b) { return a > b ? [2, 0] : [0, 2]; }
-
-  // Koliko mest na lestvici se uvrsti v končnico (četrtfinale E1-E8; 0 = brez črte)
-  var PLAYOFF = 8;
-
-  // Opomba s to besedo pomeni neopravičen izostanek: poražencu se odbije 1 točka.
-  var KAZEN = /neopravi/i;
-
-  var KAZEN_NOTE = ' Neopravičen izostanek: −1 točka.';
-  var RULES = {
-    'Košarka':   { draw: false, diff: 'Koši', kolicnik: false,
-      note: 'Zmaga 2 točki, poraz 0 točk. Predana tekma se registrira z 20:0. Pri enakem številu točk odloča razlika v koših na vseh tekmah, nato na medsebojni tekmi.' + KAZEN_NOTE,
-      pts: function (a, b) { return a > b ? [2, 0] : [0, 2]; } },
-    'Nogomet':   { draw: true, diff: 'Goli', kolicnik: false,
-      note: 'Zmaga 3 točke, neodločeno 1 točka, poraz 0 točk. Pri enakem številu točk odloča razlika v zadetkih na vseh tekmah, nato na medsebojni tekmi.' + KAZEN_NOTE,
-      pts: function (a, b) { return a > b ? [3, 0] : a < b ? [0, 3] : [1, 1]; } },
-    'Odbojka M': { draw: false, diff: 'Nizi', kolicnik: true,
-      note: 'Zmaga z 2:0 ali 2:1 prinese 2 točki, poraz 0 točk. Pri enakem številu točk odloča količnik nizov, nato količnik točk v nizih, nato medsebojna tekma.' + KAZEN_NOTE,
-      pts: volley },
-    'Odbojka Ž': { draw: false, diff: 'Nizi', kolicnik: true,
-      note: 'Zmaga z 2:0 ali 2:1 prinese 2 točki, poraz 0 točk. Pri enakem številu točk odloča količnik nizov, nato količnik točk v nizih, nato medsebojna tekma.' + KAZEN_NOTE,
-      pts: volley }
-  };
-
-  var MES = ['januar', 'februar', 'marec', 'april', 'maj', 'junij', 'julij', 'avgust', 'september', 'oktober', 'november', 'december'];
-  var MES_K = ['jan', 'feb', 'mar', 'apr', 'maj', 'jun', 'jul', 'avg', 'sep', 'okt', 'nov', 'dec'];
-  var DAN = ['nedelja', 'ponedeljek', 'torek', 'sreda', 'četrtek', 'petek', 'sobota'];
-
-  var state = { sport: SPORTS[0], view: 'tekme', krog: null, faza: 'Vse' };
-  var tekme = [], ekipe = {};
-  var podpis = '', zadnjic = 0, timer = null;
-
-  var ESC = { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' };
-  function esc(s) { return String(s == null ? '' : s).replace(/[&<>"']/g, function (c) { return ESC[c]; }); }
-  // Barva gre v style atribut, zato dovolimo samo zapis #rgb do #rrggbbaa
-  function barva(v) { return /^#[0-9a-f]{3,8}$/i.test(v || '') ? v : '#016085'; }
-  function url(sheet) { return 'https://docs.google.com/spreadsheets/d/' + SHEET + '/gviz/tq?tqx=out:csv&headers=1&sheet=' + encodeURIComponent(sheet) + '&t=' + Date.now(); }
-
-  function parseCSV(text) {
-    var rows = [], row = [], f = '', q = false;
-    for (var i = 0; i < text.length; i++) {
-      var c = text[i];
-      if (q) { if (c === '"') { if (text[i + 1] === '"') { f += '"'; i++; } else q = false; } else f += c; }
-      else if (c === '"') q = true;
-      else if (c === ',') { row.push(f); f = ''; }
-      else if (c === '\n') { row.push(f); rows.push(row); row = []; f = ''; }
-      else if (c !== '\r') f += c;
+    // Točkovanje in razvrstitev po Pravilniku USL UM 2026/2027
+    // Odbojka: igra se na dva dobljena niza, zmaga 2:0 ali 2:1 prinese 2 točki.
+    function volley(a, b) {
+      return a > b ? [2, 0] : [0, 2];
     }
-    if (f !== '' || row.length) { row.push(f); rows.push(row); }
-    var head = (rows.shift() || []).map(function (h) { return h.trim(); });
-    return rows.filter(function (r) { return r.some(function (x) { return x.trim(); }); }).map(function (r) {
-      var o = {}; head.forEach(function (h, j) { o[h] = (r[j] || '').trim(); }); return o;
-    });
-  }
 
-  function num(v) { if (v === '' || v == null) return null; var n = parseFloat(String(v).replace(',', '.')); return isNaN(n) ? null : n; }
-  function dateOf(s) { var p = (s || '').split('-'); if (p.length !== 3) return null; var d = new Date(+p[0], +p[1] - 1, +p[2]); return isNaN(d.getTime()) ? null : d; }
-  function played(t) { return t.rd !== null && t.rg !== null; }
+    // Koliko mest na lestvici se uvrsti v končnico (četrtfinale E1-E8; 0 = brez črte)
+    var PLAYOFF = 8;
 
-  // Vrne true, če so podatki novi in je izris potreben.
-  // Če en list odpove, ostali vseeno pridejo skozi; napako javimo šele, če odpovejo vsi.
-  function load() {
-    var reqs = SPORTS.concat(['Ekipe']).map(function (name) {
-      return fetch(url(name))
-        .then(function (r) { if (!r.ok) throw new Error(name); return r.text(); })
-        .catch(function () { return null; });
-    });
-    return Promise.all(reqs).then(function (res) {
-      if (res.every(function (x) { return x === null; })) throw new Error('noben list ni dosegljiv');
-      zadnjic = Date.now();
-      var nov = res.join('\u0000');
-      if (nov === podpis) return false;   // nič se ni spremenilo, DOM pustimo pri miru
-      podpis = nov;
-      tekme = [];
-      SPORTS.forEach(function (sport, i) {
-        if (res[i] === null) return;
-        parseCSV(res[i]).forEach(function (t) {
-          var m = { sport: sport, faza: t.faza || '', krog: num(t.krog), datum: t.datum || '', ura: t.ura || '', lokacija: t.lokacija || '',
-                    d: (t.domaci || '').toUpperCase(), g: (t.gostje || '').toUpperCase(), rd: num(t.rez_d), rg: num(t.rez_g),
-                    nizi: t.nizi || '', opomba: t.opomba || '' };
-          if (m.d && m.g) tekme.push(m);
+    // Opomba s katero od teh besed pomeni predano tekmo oziroma neopravičen
+    // izostanek: poražencu se odbije 1 točka.
+    var KAZEN = /neopravi|predan|brez boja/i;
+
+    // Opomba z »izstop« pomeni tekmo, registrirano zaradi izstopa ekipe iz
+    // tekmovanja: na lestvici se šteje, na razporedu in med rezultati pa je ni.
+    var SKRIT = /izstop/i;
+
+    var KAZEN_NOTE = " Predana tekma ali neopravičen izostanek: −1 točka poražencu.";
+    var RULES = {
+      Košarka: {
+        draw: false,
+        diff: "Koši",
+        kolicnik: false,
+        note:
+          "Zmaga 2 točki, poraz 0 točk. Predana tekma se registrira z 20:0. Pri enakem številu točk odloča razlika v koših na vseh tekmah, nato na medsebojni tekmi." +
+          KAZEN_NOTE,
+        pts: function (a, b) {
+          return a > b ? [2, 0] : [0, 2];
+        },
+      },
+      Nogomet: {
+        draw: true,
+        diff: "Goli",
+        kolicnik: false,
+        note:
+          "Zmaga 3 točke, neodločeno 1 točka, poraz 0 točk. Pri enakem številu točk odloča razlika v zadetkih na vseh tekmah, nato na medsebojni tekmi." +
+          KAZEN_NOTE,
+        pts: function (a, b) {
+          return a > b ? [3, 0] : a < b ? [0, 3] : [1, 1];
+        },
+      },
+      "Odbojka M": {
+        draw: false,
+        diff: "Nizi",
+        kolicnik: true,
+        note:
+          "Zmaga z 2:0 ali 2:1 prinese 2 točki, poraz 0 točk. Pri enakem številu točk odloča količnik nizov, nato količnik točk v nizih, nato medsebojna tekma." +
+          KAZEN_NOTE,
+        pts: volley,
+      },
+      "Odbojka Ž": {
+        draw: false,
+        diff: "Nizi",
+        kolicnik: true,
+        note:
+          "Zmaga z 2:0 ali 2:1 prinese 2 točki, poraz 0 točk. Pri enakem številu točk odloča količnik nizov, nato količnik točk v nizih, nato medsebojna tekma." +
+          KAZEN_NOTE,
+        pts: volley,
+      },
+    };
+
+    var MES = [
+      "januar",
+      "februar",
+      "marec",
+      "april",
+      "maj",
+      "junij",
+      "julij",
+      "avgust",
+      "september",
+      "oktober",
+      "november",
+      "december",
+    ];
+    var MES_K = [
+      "jan",
+      "feb",
+      "mar",
+      "apr",
+      "maj",
+      "jun",
+      "jul",
+      "avg",
+      "sep",
+      "okt",
+      "nov",
+      "dec",
+    ];
+    var DAN = [
+      "nedelja",
+      "ponedeljek",
+      "torek",
+      "sreda",
+      "četrtek",
+      "petek",
+      "sobota",
+    ];
+
+    var state = {
+      sport: SPORTS[0],
+      view: "tekme",
+      krog: null,
+      faza: "Vse",
+      vsiStrelci: false,
+    };
+    var tekme = [],
+      ekipe = {},
+      strelci = [],
+      kazni = [];
+    var podpis = "",
+      zadnjic = 0,
+      timer = null;
+
+    var ESC = {
+      "&": "&amp;",
+      "<": "&lt;",
+      ">": "&gt;",
+      '"': "&quot;",
+      "'": "&#39;",
+    };
+    function esc(s) {
+      return String(s == null ? "" : s).replace(/[&<>"']/g, function (c) {
+        return ESC[c];
+      });
+    }
+    // Barva gre v style atribut, zato dovolimo samo zapis #rgb do #rrggbbaa
+    function barva(v) {
+      return /^#[0-9a-f]{3,8}$/i.test(v || "") ? v : "#016085";
+    }
+    function url(sheet) {
+      return (
+        "https://docs.google.com/spreadsheets/d/" +
+        SHEET +
+        "/gviz/tq?tqx=out:csv&headers=1&sheet=" +
+        encodeURIComponent(sheet) +
+        "&t=" +
+        Date.now()
+      );
+    }
+
+    // Vrne CSV kot polje vrstic. Odrežemo BOM in zaznamo ločilo, ker slovenski
+    // Excel shrani CSV s podpičji, Google Sheets pa z vejicami.
+    function csvGrid(text) {
+      text = String(text == null ? "" : text).replace(/^\uFEFF/, "");
+      var prva = text.split("\n")[0];
+      var sep =
+        (prva.match(/;/g) || []).length > (prva.match(/,/g) || []).length
+          ? ";"
+          : ",";
+      var rows = [],
+        row = [],
+        f = "",
+        q = false;
+      for (var i = 0; i < text.length; i++) {
+        var c = text[i];
+        if (q) {
+          if (c === '"') {
+            if (text[i + 1] === '"') {
+              f += '"';
+              i++;
+            } else q = false;
+          } else f += c;
+        } else if (c === '"') q = true;
+        else if (c === sep) {
+          row.push(f);
+          f = "";
+        } else if (c === "\n") {
+          row.push(f);
+          rows.push(row);
+          row = [];
+          f = "";
+        } else if (c !== "\r") f += c;
+      }
+      if (f !== "" || row.length) {
+        row.push(f);
+        rows.push(row);
+      }
+      return rows;
+    }
+
+    function parseCSV(text) {
+      var rows = csvGrid(text);
+      var head = (rows.shift() || []).map(function (h) {
+        return h.trim();
+      });
+      return rows
+        .filter(function (r) {
+          return r.some(function (x) {
+            return x.trim();
+          });
+        })
+        .map(function (r) {
+          var o = {};
+          head.forEach(function (h, j) {
+            o[h] = (r[j] || "").trim();
+          });
+          return o;
+        });
+    }
+
+    // V izvornih datotekah sta Đ in đ zapisana kot islandski eth (Ð, ð).
+    // Datotek ne spreminjamo, zato znaka popravimo pri branju.
+    function ime(s) {
+      return String(s == null ? "" : s)
+        .trim()
+        .replace(/\u00D0/g, "\u0110")
+        .replace(/\u00F0/g, "\u0111");
+    }
+
+    // Lista strelcev: glava fakulteta | Ime in priimek | število golov.
+    // Stolpce iščemo po besedilu glave, da prestavljen stolpec ne podre prikaza.
+    function parseStrelci(text) {
+      var rows = csvGrid(text),
+        out = [],
+        hi = -1,
+        ce = -1,
+        ci = -1,
+        cg = -1;
+      for (var i = 0; i < rows.length && hi < 0; i++) {
+        ce = ci = cg = -1;
+        rows[i].forEach(function (c, j) {
+          var v = c.trim().toLowerCase();
+          if (!v) return;
+          if (/fakultet|ekipa/.test(v)) ce = j;
+          else if (/ime|priimek|igralec/.test(v)) ci = j;
+          else if (/gol|koš|točk/.test(v)) cg = j;
+        });
+        if (ce >= 0 && ci >= 0 && cg >= 0) hi = i;
+      }
+      if (hi < 0) return out;
+      rows.slice(hi + 1).forEach(function (r) {
+        var ig = ime(r[ci]),
+          n = num((r[cg] || "").trim());
+        if (!ig || n === null) return;
+        out.push({
+          ekipa: (r[ce] || "").trim().toUpperCase(),
+          igralec: ig,
+          goli: n,
         });
       });
-      if (res[SPORTS.length] !== null) {
-        ekipe = {};
-        parseCSV(res[SPORTS.length]).forEach(function (e) { if (e.kratica) ekipe[e.kratica.toUpperCase()] = e; });
-      }
-      return true;
-    });
-  }
-
-  // Barvni krogec s kratico; polno ime ekipe stoji ob njem.
-  function krogec(k) {
-    var e = ekipe[k] || {};
-    return '<span class="usl-logo" style="background:' + barva(e.barva) + '" title="' + esc(e.ime || k) + '">' + esc(k) + '</span>';
-  }
-
-  function sportMatches() { return tekme.filter(function (t) { return t.sport === state.sport; }); }
-
-  function defaultKrog(list) {
-    var kr = rounds(list);
-    if (!kr.length) return null;
-    for (var i = 0; i < kr.length; i++) {
-      if (list.some(function (t) { return t.krog === kr[i] && !played(t) && !t.opomba; })) return kr[i];
+      return out;
     }
-    return kr[kr.length - 1];
-  }
-  function rounds(list) {
-    var s = {}; list.forEach(function (t) { if (t.krog !== null) s[t.krog] = 1; });
-    return Object.keys(s).map(Number).sort(function (a, b) { return a - b; });
-  }
-  function fazeOf(list) {
-    var s = {}; list.forEach(function (t) { s[t.faza] = 1; });
-    return Object.keys(s).sort();
-  }
 
-  // Število tekem in razpon datumov za vsak krog, v enem prehodu čez seznam
-  function povzetekKrogov(list) {
-    var po = {};
-    list.forEach(function (t) {
-      if (t.krog === null) return;
-      if (state.faza !== 'Vse' && t.faza !== state.faza) return;
-      var o = po[t.krog] || (po[t.krog] = { n: 0, a: null, b: null });
-      o.n++;
-      var d = dateOf(t.datum);
-      if (d) { if (!o.a || d < o.a) o.a = d; if (!o.b || d > o.b) o.b = d; }
-    });
-    return po;
-  }
-  function obdobje(o) {
-    if (!o || !o.a) return '';
-    var a = o.a, b = o.b;
-    if (+a === +b) return a.getDate() + '. ' + MES_K[a.getMonth()];
-    if (a.getMonth() === b.getMonth()) return a.getDate() + '.–' + b.getDate() + '. ' + MES_K[b.getMonth()];
-    return a.getDate() + '. ' + MES_K[a.getMonth()] + ' – ' + b.getDate() + '. ' + MES_K[b.getMonth()];
-  }
-  function stTekem(n) { return n + (n === 1 ? ' tekma' : n === 2 ? ' tekmi' : n === 3 || n === 4 ? ' tekme' : ' tekem'); }
-
-  function ekipaCell(k, cls) {
-    return '<div class="usl-team' + cls + '">' + krogec(k) + '</div>';
-  }
-
-  function matchCard(t) {
-    var p = played(t), hl = p && t.rd < t.rg, gl = p && t.rg < t.rd;
-    var score = p ? '<div class="usl-score">' + t.rd + ':' + t.rg + '</div>'
-                  : '<div class="usl-score time">' + esc(t.ura || '–') + '</div>';
-    var h = '<div class="usl-match">' +
-      '<div class="usl-meta"><strong>' + esc(t.faza) + (t.krog !== null ? ' – ' + t.krog + '. krog' : '') + '</strong><br>' +
-      esc(t.lokacija) + (p && t.ura ? ' · ' + esc(t.ura) : '') + '</div>' +
-      '<div class="usl-row">' +
-      ekipaCell(t.d, ' home' + (hl ? ' lost' : '')) +
-      score +
-      ekipaCell(t.g, gl ? ' lost' : '') +
-      '</div>';
-    if (p && t.nizi) h += '<div class="usl-sets">' + esc(t.nizi) + '</div>';
-    if (t.opomba) h += '<div class="usl-badge">' + esc(t.opomba) + '</div>';
-    return h + '</div>';
-  }
-
-  function renderTekme(list) {
-    var f = list.filter(function (t) { return t.krog === state.krog && (state.faza === 'Vse' || t.faza === state.faza); });
-    if (!f.length) return '<div class="usl-msg">V tem krogu ni tekem.</div>';
-    f.sort(function (a, b) { return (a.datum + a.ura).localeCompare(b.datum + b.ura); });
-    var out = '', last = null;
-    f.forEach(function (t) {
-      if (t.datum !== last) {
-        var d = dateOf(t.datum);
-        if (d) out += '<div class="usl-day">' + DAN[d.getDay()] + ', ' + d.getDate() + '. ' + MES[d.getMonth()] + ' ' + d.getFullYear() + '</div>';
-        else if (t.datum) out += '<div class="usl-day">' + esc(t.datum) + '</div>';
-        last = t.datum;
+    // Kazni: naslovi so razsejani po stolpcih (»Kazni košarka«, »Kartoni
+    // nogomet«, »prepoved igranja«), zato jih iščemo po besedilu in beremo
+    // vrstice pod njimi. Prestavljen ali vrinjen stolpec tako prikaza ne podre;
+    // če naslov kdo preimenuje, ostane zavihek prazen.
+    function parseKazni(text) {
+      var rows = csvGrid(text),
+        out = [],
+        stolpci = [],
+        hi = -1;
+      for (var i = 0; i < rows.length && hi < 0; i++) {
+        var najd = [];
+        rows[i].forEach(function (c, j) {
+          var v = c.trim().toLowerCase();
+          if (!v) return;
+          var sp = null;
+          SPORTS.forEach(function (sport) {
+            if (v.indexOf(sport.toLowerCase()) >= 0) sp = sport;
+          });
+          if (sp) najd.push({ j: j, kaj: "ime", sport: sp, vrsta: "" });
+          else if (v.indexOf("prepoved") >= 0)
+            najd.push({
+              j: j,
+              kaj: "ime",
+              sport: null,
+              vrsta: "prepoved igranja",
+            });
+          else if (/karton|kazn|tehni|prekr/.test(v))
+            najd.push({ j: j, kaj: "opis" });
+        });
+        if (
+          najd.some(function (x) {
+            return x.kaj === "ime";
+          })
+        ) {
+          hi = i;
+          stolpci = najd;
+        }
       }
-      out += matchCard(t);
-    });
-    return out;
-  }
-
-  // "25:20, 25:22" -> [50, 42]; za količnik točk v nizih pri odbojki
-  function tockeNizov(nizi) {
-    var d = 0, g = 0;
-    (nizi || '').split(',').forEach(function (niz) {
-      var p = niz.split(':');
-      if (p.length !== 2) return;
-      var a = parseInt(p[0], 10), b = parseInt(p[1], 10);
-      if (isNaN(a) || isNaN(b)) return;
-      d += a; g += b;
-    });
-    return [d, g];
-  }
-
-  function standings(list, faza, doKroga) {
-    var R = RULES[state.sport], T = {}, med = {};
-    function row(k) { return T[k] || (T[k] = { k: k, t: 0, z: 0, n: 0, p: 0, za: 0, pr: 0, tz: 0, tp: 0, pts: 0 }); }
-    list.forEach(function (m) {
-      if (m.faza !== faza) return;
-      if (doKroga != null && (m.krog === null || m.krog > doKroga)) return;
-      var a = row(m.d), b = row(m.g);
-      if (!played(m)) return;
-      var pt = R.pts(m.rd, m.rg);
-      a.t++; b.t++; a.za += m.rd; a.pr += m.rg; b.za += m.rg; b.pr += m.rd; a.pts += pt[0]; b.pts += pt[1];
-      if (KAZEN.test(m.opomba)) {
-        if (m.rd < m.rg) a.pts -= 1; else if (m.rg < m.rd) b.pts -= 1;
-      }
-      if (R.kolicnik) {
-        var tn = tockeNizov(m.nizi);
-        a.tz += tn[0]; a.tp += tn[1]; b.tz += tn[1]; b.tp += tn[0];
-      }
-      if (m.rd > m.rg) { a.z++; b.p++; } else if (m.rd < m.rg) { b.z++; a.p++; } else { a.n++; b.n++; }
-      med[m.d + '|' + m.g] = m.rd - m.rg;
-    });
-    // Razlika na medsebojni tekmi z vidika ekipe x (liga je enokrožna, par se sreča enkrat)
-    function medsebojno(x, y) {
-      if (med[x.k + '|' + y.k] != null) return med[x.k + '|' + y.k];
-      if (med[y.k + '|' + x.k] != null) return -med[y.k + '|' + x.k];
-      return 0;
-    }
-    return Object.keys(T).map(function (k) { return T[k]; }).sort(function (x, y) {
-      if (y.pts !== x.pts) return y.pts - x.pts;
-      if (R.kolicnik) {
-        var kn = kol(y.za, y.pr) - kol(x.za, x.pr);   // količnik nizov
-        if (kn) return kn;
-        var kt = kol(y.tz, y.tp) - kol(x.tz, x.tp);   // količnik točk v nizih
-        if (kt) return kt;
-      } else {
-        var d = (y.za - y.pr) - (x.za - x.pr);
-        if (d) return d;
-      }
-      var h = medsebojno(y, x);
-      if (h) return h;
-      return x.k.localeCompare(y.k);
-    });
-  }
-
-  // Zadnji krog z odigrano tekmo - od njega se meri premik po lestvici
-  function zadnjiOdigraniKrog(list, faza) {
-    var k = null;
-    list.forEach(function (m) {
-      if (m.faza !== faza || m.krog === null || !played(m)) return;
-      if (k === null || m.krog > k) k = m.krog;
-    });
-    return k;
-  }
-
-  // Mesta na lestvici, kakršna so bila pred zadnjim odigranim krogom
-  function prejsnjaMesta(list, faza) {
-    var zk = zadnjiOdigraniKrog(list, faza), mesta = {};
-    if (zk === null) return mesta;
-    var prej = standings(list, faza, zk - 1);
-    if (!prej.some(function (r) { return r.t > 0; })) return mesta;
-    prej.forEach(function (r, i) { mesta[r.k] = i; });
-    return mesta;
-  }
-
-  function premik(prej, k, i) {
-    if (prej[k] == null || prej[k] === i) return '';
-    return prej[k] > i ? '<span class="usl-mv up" title="napredoval">&#9650;</span>'
-                       : '<span class="usl-mv down" title="nazadoval">&#9660;</span>';
-  }
-
-  // Količnik po pravilniku: brez porazov je "max.", brez odigranega pa 0,
-  // da se ekipa brez tekem ne izenači z vsemi ostalimi.
-  function kol(a, b) { return b ? a / b : (a ? Infinity : 0); }
-  function kolStr(a, b, dec) {
-    if (!b) return a ? 'max.' : '0';
-    if (!a) return '0';
-    var v = a / b;
-    return (dec ? v.toFixed(dec) : String(Math.round(v * 1000) / 1000)).replace('.', ',');
-  }
-
-  function renderLestvica(list) {
-    var R = RULES[state.sport], out = '', jeCrta = false;
-    fazeOf(list).forEach(function (fz) {
-      if (state.faza !== 'Vse' && fz !== state.faza) return;
-      var rows = standings(list, fz), prej = prejsnjaMesta(list, fz);
-      var crta = PLAYOFF > 0 && rows.length > PLAYOFF;
-      var glava = '<tr><th rowspan="2">Mesto</th><th rowspan="2" class="t">Ekipa</th>' +
-        '<th colspan="' + (R.draw ? 3 : 2) + '">Tekme</th>' +
-        (R.kolicnik
-          ? '<th colspan="3">Seti</th><th colspan="3">Točke v setih</th>'
-          : '<th colspan="3">' + R.diff + '</th>') +
-        '<th rowspan="2">Točke</th></tr><tr><th>Zmage</th>' +
-        (R.draw ? '<th>Neodločeno</th>' : '') + '<th>Porazi</th>' +
-        (R.kolicnik
-          ? '<th>Zmage</th><th>Porazi</th><th>Količnik</th><th>Zmage</th><th>Porazi</th><th>Količnik</th>'
-          : '<th>Dani</th><th>Prejeti</th><th>Razlika</th>') +
-        '</tr>';
-      out += '<div class="usl-group">' + esc(fz) + '</div><div class="usl-wrap"><table><thead>' + glava + '</thead><tbody>';
-      rows.forEach(function (r, i) {
-        var d = r.za - r.pr;
-        var celice = '<td>' + r.z + '</td>' + (R.draw ? '<td>' + r.n + '</td>' : '') + '<td>' + r.p + '</td>' +
-          (R.kolicnik
-            ? '<td>' + r.za + '</td><td>' + r.pr + '</td><td>' + kolStr(r.za, r.pr) + '</td>' +
-              '<td>' + r.tz + '</td><td>' + r.tp + '</td><td>' + kolStr(r.tz, r.tp, 3) + '</td>'
-            : '<td>' + r.za + '</td><td>' + r.pr + '</td><td>' + (d > 0 ? '+' : '') + d + '</td>');
-        out += '<tr' + (crta && i === PLAYOFF - 1 ? ' class="cut"' : '') + '>' +
-          '<td class="r">' + premik(prej, r.k, i) + (i + 1) + '.</td>' +
-          '<td class="t">' + krogec(r.k) + '</td>' + celice +
-          '<td class="p">' + r.pts + '</td></tr>';
+      if (hi < 0) return out;
+      // Stolpec brez športa (prepoved igranja) pripada zadnjemu športu na levi,
+      // stolpec z opisom pa imenu, ki stoji levo od njega.
+      var zadnji = null;
+      stolpci.forEach(function (st, idx) {
+        if (st.kaj !== "ime") return;
+        if (st.sport) zadnji = st.sport;
+        else st.sport = zadnji;
+        for (var k = idx + 1; k < stolpci.length; k++) {
+          if (stolpci[k].kaj === "ime") break;
+          if (stolpci[k].kaj === "opis") {
+            st.opisJ = stolpci[k].j;
+            break;
+          }
+        }
       });
-      out += '</tbody></table></div>';
-      if (crta) jeCrta = true;
-    });
-    return out + '<div class="usl-note">' +
-      (jeCrta ? 'Ekipe nad črto se uvrstijo v končnico. ' : '') + R.note + '</div>';
-  }
-
-  // Puščici ob traku krogov: skrijeta se, ko ni kaj drsati, in ugasneta na koncih.
-  function osveziPuscice() {
-    var trak = root.querySelector('.usl-rounds');
-    if (!trak) return;
-    var prej = root.querySelector('.usl-nav[data-nav="-1"]');
-    var nasl = root.querySelector('.usl-nav[data-nav="1"]');
-    var max = trak.scrollWidth - trak.clientWidth;
-    var skrij = max <= 2;
-    if (prej) { prej.style.display = skrij ? 'none' : ''; prej.disabled = trak.scrollLeft <= 2; }
-    if (nasl) { nasl.style.display = skrij ? 'none' : ''; nasl.disabled = trak.scrollLeft >= max - 2; }
-  }
-
-  function render() {
-    var list = sportMatches();
-    if (state.krog === null || !list.some(function (t) { return t.krog === state.krog; })) state.krog = defaultKrog(list);
-    var faze = fazeOf(list);
-    if (state.faza !== 'Vse' && faze.indexOf(state.faza) < 0) state.faza = 'Vse';
-
-    var h = '<div class="usl-sports">' + SPORTS.map(function (s) {
-      return '<button type="button" class="usl-sport' + (s === state.sport ? ' on' : '') + '" data-sport="' + esc(s) + '">' + esc(TITLES[s]) + '</button>';
-    }).join('') + '</div>';
-
-    h += '<div class="usl-head"><div class="usl-title">' + esc(TITLES[state.sport]) + '</div>' +
-         '<div class="usl-sub">' + (state.view === 'tekme' ? 'Razpored in rezultati po krogih' : 'Lestvica') + '</div>';
-    if (state.view === 'tekme') {
-      var po = povzetekKrogov(list);
-      h += '<div class="usl-nav-wrap">' +
-        '<button type="button" class="usl-nav" data-nav="-1" aria-label="Prejšnji krogi">&#8249;</button>' +
-        '<div class="usl-rounds">' + rounds(list).map(function (k) {
-          var o = po[k];
-          return '<button type="button" class="usl-round' + (k === state.krog ? ' on' : '') + '" data-krog="' + k + '"><b>' + k + '. krog</b><span>' +
-            obdobje(o) + '</span><span>' + stTekem(o ? o.n : 0) + '</span></button>';
-        }).join('') + '</div>' +
-        '<button type="button" class="usl-nav" data-nav="1" aria-label="Naslednji krogi">&#8250;</button>' +
-        '</div>';
-    }
-    h += '<div class="usl-tabs"><button type="button" class="usl-tab' + (state.view === 'tekme' ? ' on' : '') + '" data-view="tekme">Tekme</button>' +
-         '<button type="button" class="usl-tab' + (state.view === 'lestvica' ? ' on' : '') + '" data-view="lestvica">Lestvica</button></div></div>';
-
-    h += '<div class="usl-body">';
-    if (faze.length > 1) {
-      h += '<div class="usl-filter">' + ['Vse'].concat(faze).map(function (f) {
-        return '<button type="button" class="usl-chip' + (f === state.faza ? ' on' : '') + '" data-faza="' + esc(f) + '">' + esc(f) + '</button>';
-      }).join('') + '</div>';
-    }
-    h += list.length ? (state.view === 'tekme' ? renderTekme(list) : renderLestvica(list)) : '<div class="usl-msg">Za ta šport še ni razporeda.</div>';
-    h += '</div>';
-    root.innerHTML = h;
-
-    if (BANNER) {
-      var head = root.querySelector('.usl-head');
-      if (head) head.style.backgroundImage = "linear-gradient(90deg,rgba(1,74,102,.74) 0%,rgba(1,74,102,.74) 100%),url(" + JSON.stringify(BANNER) + ")";
+      rows.slice(hi + 1).forEach(function (r) {
+        stolpci.forEach(function (st) {
+          if (st.kaj !== "ime") return;
+          var celica = ime(r[st.j]);
+          if (!celica) return;
+          var m = celica.match(/^(.*?)\s*\(([^)]+)\)\s*$/);
+          var opis = st.opisJ == null ? "" : (r[st.opisJ] || "").trim();
+          out.push({
+            sport: st.sport || "",
+            igralec: m ? m[1].trim() : celica,
+            ekipa: m ? m[2].trim().toUpperCase() : "",
+            vrsta: opis || st.vrsta,
+            prepoved: st.vrsta === "prepoved igranja",
+          });
+        });
+      });
+      return out;
     }
 
-    var trak = root.querySelector('.usl-rounds');
-    if (trak) {
-      trak.addEventListener('scroll', osveziPuscice);
-      var on = trak.querySelector('.usl-round.on');
-      if (on) {
-        trak.style.scrollBehavior = 'auto';   // prvo postavitev brez animacije
-        trak.scrollLeft = on.offsetLeft - trak.clientWidth / 2 + on.clientWidth / 2;
-        trak.style.scrollBehavior = '';
+    function num(v) {
+      if (v === "" || v == null) return null;
+      var n = parseFloat(String(v).replace(",", "."));
+      return isNaN(n) ? null : n;
+    }
+    function dateOf(s) {
+      var p = (s || "").split("-");
+      if (p.length !== 3) return null;
+      var d = new Date(+p[0], +p[1] - 1, +p[2]);
+      return isNaN(d.getTime()) ? null : d;
+    }
+    function played(t) {
+      return t.rd !== null && t.rg !== null;
+    }
+
+    // Datoteka iz medijske knjižnice; ob napaki vrne null, da ostalo dela naprej.
+    function datoteka(u) {
+      return fetch(u + (u.indexOf("?") < 0 ? "?" : "&") + "t=" + Date.now())
+        .then(function (r) {
+          if (!r.ok) throw new Error(u);
+          return r.text();
+        })
+        .catch(function () {
+          return null;
+        });
+    }
+
+    // Vrne true, če so podatki novi in je izris potreben.
+    // Če en list odpove, ostali vseeno pridejo skozi; napako javimo šele, če odpovejo vsi.
+    function load() {
+      var reqs = SPORTS.concat(["Ekipe"]).map(function (name) {
+        return fetch(url(name))
+          .then(function (r) {
+            if (!r.ok) throw new Error(name);
+            return r.text();
+          })
+          .catch(function () {
+            return null;
+          });
+      });
+      // Datoteke s strelci, kaznimi in člani ekip z ssum.um.si. Časovni žig
+      // zato, da brskalnik po menjavi datoteke ne pokaže prejšnjega kroga.
+      [STRELCI_URL, KAZNI_URL].forEach(function (u) {
+        reqs.push(u ? datoteka(u) : Promise.resolve(null));
+      });
+      return Promise.all(reqs).then(function (res) {
+        if (
+          res.every(function (x) {
+            return x === null;
+          })
+        )
+          throw new Error("noben list ni dosegljiv");
+        zadnjic = Date.now();
+        var nov = res.join("\u0000");
+        if (nov === podpis) return false; // nič se ni spremenilo, DOM pustimo pri miru
+        podpis = nov;
+        tekme = [];
+        SPORTS.forEach(function (sport, i) {
+          if (res[i] === null) return;
+          parseCSV(res[i]).forEach(function (t) {
+            var m = {
+              sport: sport,
+              faza: t.faza || "",
+              krog: num(t.krog),
+              datum: t.datum || "",
+              ura: t.ura || "",
+              lokacija: t.lokacija || "",
+              d: (t.domaci || "").toUpperCase(),
+              g: (t.gostje || "").toUpperCase(),
+              rd: num(t.rez_d),
+              rg: num(t.rez_g),
+              nizi: t.nizi || "",
+              opomba: t.opomba || "",
+            };
+            if (m.d && m.g) tekme.push(m);
+          });
+        });
+        if (res[SPORTS.length] !== null) {
+          ekipe = {};
+          parseCSV(res[SPORTS.length]).forEach(function (e) {
+            if (e.kratica) ekipe[e.kratica.toUpperCase()] = e;
+          });
+        }
+        var si = SPORTS.length + 1;
+        strelci = res[si] === null ? [] : parseStrelci(res[si]);
+        kazni = res[si + 1] === null ? [] : parseKazni(res[si + 1]);
+        return true;
+      });
+    }
+
+    // Šport v naslovu povezave: Odbojka Ž → odbojka-z.
+    var SLUG = {
+      Košarka: "kosarka",
+      Nogomet: "nogomet",
+      "Odbojka M": "odbojka-m",
+      "Odbojka Ž": "odbojka-z",
+    };
+    function ekipaHref(k) {
+      if (!EKIPE_URL) return "";
+      return (
+        EKIPE_URL +
+        (EKIPE_URL.indexOf("?") < 0 ? "?" : "&") +
+        "ekipa=" +
+        encodeURIComponent(k) +
+        "&sport=" +
+        encodeURIComponent(SLUG[state.sport] || state.sport)
+      );
+    }
+
+    // Barvni krogec s kratico; polno ime fakultete je v atributu title.
+    // Če je nastavljen data-ekipe, je krogec povezava na stran te ekipe.
+    function krogec(k) {
+      var e = ekipe[k] || {},
+        href = ekipaHref(k);
+      return (
+        "<" +
+        (href ? 'a href="' + esc(href) + '"' : "span") +
+        ' class="usl-logo" style="background:' +
+        barva(e.barva) +
+        '" title="' +
+        esc(e.ime || k) +
+        '">' +
+        esc(k) +
+        "</" +
+        (href ? "a" : "span") +
+        ">"
+      );
+    }
+
+    function sportMatches() {
+      return tekme.filter(function (t) {
+        return t.sport === state.sport;
+      });
+    }
+
+    function defaultKrog(list) {
+      var kr = rounds(list);
+      if (!kr.length) return null;
+      for (var i = 0; i < kr.length; i++) {
+        if (
+          list.some(function (t) {
+            return t.krog === kr[i] && !played(t) && !t.opomba;
+          })
+        )
+          return kr[i];
       }
-      osveziPuscice();
+      return kr[kr.length - 1];
     }
-  }
-
-  function obKliku(e) {
-    var b = e.target.closest('button'); if (!b) return;
-    if (b.dataset.nav) {                      // drsenje traku krogov, brez ponovnega izrisa
-      var trak = root.querySelector('.usl-rounds');
-      if (trak) trak.scrollLeft += Number(b.dataset.nav) * Math.max(180, trak.clientWidth * 0.8);
-      return;
+    function rounds(list) {
+      var s = {};
+      list.forEach(function (t) {
+        if (t.krog !== null) s[t.krog] = 1;
+      });
+      return Object.keys(s)
+        .map(Number)
+        .sort(function (a, b) {
+          return a - b;
+        });
     }
-    if (b.dataset.sport) { state.sport = b.dataset.sport; state.krog = null; state.faza = 'Vse'; }
-    else if (b.dataset.view) state.view = b.dataset.view;
-    else if (b.dataset.krog) state.krog = Number(b.dataset.krog);
-    else if (b.dataset.faza) state.faza = b.dataset.faza;
-    else return;
-    render();
-  }
+    function fazeOf(list) {
+      var s = {};
+      list.forEach(function (t) {
+        s[t.faza] = 1;
+      });
+      return Object.keys(s).sort();
+    }
 
-  function refresh() {
-    return load().then(function (novo) { if (novo) render(); });
-  }
+    // Število tekem in razpon datumov za vsak krog, v enem prehodu čez seznam
+    function povzetekKrogov(list) {
+      var po = {};
+      list.forEach(function (t) {
+        if (t.krog === null) return;
+        if (state.faza !== "Vse" && t.faza !== state.faza) return;
+        var o = po[t.krog] || (po[t.krog] = { n: 0, a: null, b: null });
+        o.n++;
+        var d = dateOf(t.datum);
+        if (d) {
+          if (!o.a || d < o.a) o.a = d;
+          if (!o.b || d > o.b) o.b = d;
+        }
+      });
+      return po;
+    }
+    function obdobje(o) {
+      if (!o || !o.a) return "";
+      var a = o.a,
+        b = o.b;
+      if (+a === +b) return a.getDate() + ". " + MES_K[a.getMonth()];
+      if (a.getMonth() === b.getMonth())
+        return a.getDate() + ".–" + b.getDate() + ". " + MES_K[b.getMonth()];
+      return (
+        a.getDate() +
+        ". " +
+        MES_K[a.getMonth()] +
+        " – " +
+        b.getDate() +
+        ". " +
+        MES_K[b.getMonth()]
+      );
+    }
+    function stTekem(n) {
+      return (
+        n +
+        (n === 1
+          ? " tekma"
+          : n === 2
+            ? " tekmi"
+            : n === 3 || n === 4
+              ? " tekme"
+              : " tekem")
+      );
+    }
 
-  // Ustavi vse, kar teče v ozadju. Pokliče se samo, ko bloka ni več na strani,
-  // gostitelj (npr. WordPress gradnik) pa lahko tudi sam: document.getElementById('usl-liga').uslStop()
-  function ustavi() {
-    if (timer) { clearInterval(timer); timer = null; }
-    window.removeEventListener('resize', osveziPuscice);
-    document.removeEventListener('visibilitychange', obVidnosti);
-    root.removeEventListener('click', obKliku);
-    tekme = []; ekipe = {}; podpis = '';
-    delete root.dataset.uslInit;
-  }
-  root.uslStop = ustavi;
+    function ekipaCell(k, cls) {
+      return '<div class="usl-team' + cls + '">' + krogec(k) + "</div>";
+    }
 
-  function obVidnosti() {
-    if (!document.hidden && Date.now() - zadnjic > SVEZE) refresh().catch(function () {});
-  }
+    function matchCard(t) {
+      var p = played(t),
+        hl = p && t.rd < t.rg,
+        gl = p && t.rg < t.rd;
+      var score = p
+        ? '<div class="usl-score">' + t.rd + ":" + t.rg + "</div>"
+        : '<div class="usl-score time">' + esc(t.ura || "–") + "</div>";
+      var h =
+        '<div class="usl-match">' +
+        '<div class="usl-meta"><strong>' +
+        esc(t.faza) +
+        (t.krog !== null ? " – " + t.krog + ". krog" : "") +
+        "</strong><br>" +
+        esc(t.lokacija) +
+        (p && t.ura ? " · " + esc(t.ura) : "") +
+        "</div>" +
+        '<div class="usl-row">' +
+        ekipaCell(t.d, " home" + (hl ? " lost" : "")) +
+        score +
+        ekipaCell(t.g, gl ? " lost" : "") +
+        "</div>";
+      if (p && t.nizi) h += '<div class="usl-sets">' + esc(t.nizi) + "</div>";
+      if (t.opomba) h += '<div class="usl-badge">' + esc(t.opomba) + "</div>";
+      return h + "</div>";
+    }
 
-  function tik() {
-    if (!document.contains(root)) { ustavi(); return; }   // bloka ni več na strani
-    if (document.hidden) return;                          // v skritem zavihku ne hodimo po podatke
-    refresh().catch(function () {});
-  }
+    function renderTekme(list) {
+      var f = list.filter(function (t) {
+        return (
+          t.krog === state.krog &&
+          (state.faza === "Vse" || t.faza === state.faza)
+        );
+      });
+      if (!f.length) return '<div class="usl-msg">V tem krogu ni tekem.</div>';
+      f.sort(function (a, b) {
+        return (a.datum + a.ura).localeCompare(b.datum + b.ura);
+      });
+      var out = "",
+        last = null;
+      f.forEach(function (t) {
+        if (t.datum !== last) {
+          var d = dateOf(t.datum);
+          if (d)
+            out +=
+              '<div class="usl-day">' +
+              DAN[d.getDay()] +
+              ", " +
+              d.getDate() +
+              ". " +
+              MES[d.getMonth()] +
+              " " +
+              d.getFullYear() +
+              "</div>";
+          else if (t.datum)
+            out += '<div class="usl-day">' + esc(t.datum) + "</div>";
+          last = t.datum;
+        }
+        out += matchCard(t);
+      });
+      return out;
+    }
 
-  root.addEventListener('click', obKliku);
-  window.addEventListener('resize', osveziPuscice);
-  document.addEventListener('visibilitychange', obVidnosti);
-  timer = setInterval(tik, SVEZE);
+    // "25:20, 25:22" -> [50, 42]; za količnik točk v nizih pri odbojki
+    function tockeNizov(nizi) {
+      var d = 0,
+        g = 0;
+      (nizi || "").split(",").forEach(function (niz) {
+        var p = niz.split(":");
+        if (p.length !== 2) return;
+        var a = parseInt(p[0], 10),
+          b = parseInt(p[1], 10);
+        if (isNaN(a) || isNaN(b)) return;
+        d += a;
+        g += b;
+      });
+      return [d, g];
+    }
 
-  refresh().catch(function (e) {
-    root.innerHTML = '<div class="usl-msg">Podatkov trenutno ni mogoče naložiti. Poskusite znova pozneje.</div>';
-    // Namig za urednika gre v konzolo, obiskovalec strani z njim nima kaj početi.
-    if (window.console) console.warn('USL liga: podatkov ni bilo mogoče naložiti. Preveri, ali je Google Sheet deljen kot "Anyone with the link – Viewer".', e);
-  });
-})();
+    function standings(list, faza, doKroga) {
+      var R = RULES[state.sport],
+        T = {},
+        med = {};
+      function row(k) {
+        return (
+          T[k] ||
+          (T[k] = {
+            k: k,
+            t: 0,
+            z: 0,
+            n: 0,
+            p: 0,
+            za: 0,
+            pr: 0,
+            tz: 0,
+            tp: 0,
+            pts: 0,
+          })
+        );
+      }
+      list.forEach(function (m) {
+        if (m.faza !== faza) return;
+        if (doKroga != null && (m.krog === null || m.krog > doKroga)) return;
+        var a = row(m.d),
+          b = row(m.g);
+        if (!played(m)) return;
+        var pt = R.pts(m.rd, m.rg);
+        a.t++;
+        b.t++;
+        a.za += m.rd;
+        a.pr += m.rg;
+        b.za += m.rg;
+        b.pr += m.rd;
+        a.pts += pt[0];
+        b.pts += pt[1];
+        if (KAZEN.test(m.opomba)) {
+          if (m.rd < m.rg) a.pts -= 1;
+          else if (m.rg < m.rd) b.pts -= 1;
+        }
+        if (R.kolicnik) {
+          var tn = tockeNizov(m.nizi);
+          a.tz += tn[0];
+          a.tp += tn[1];
+          b.tz += tn[1];
+          b.tp += tn[0];
+        }
+        if (m.rd > m.rg) {
+          a.z++;
+          b.p++;
+        } else if (m.rd < m.rg) {
+          b.z++;
+          a.p++;
+        } else {
+          a.n++;
+          b.n++;
+        }
+        med[m.d + "|" + m.g] = m.rd - m.rg;
+      });
+      // Razlika na medsebojni tekmi z vidika ekipe x (liga je enokrožna, par se sreča enkrat)
+      function medsebojno(x, y) {
+        if (med[x.k + "|" + y.k] != null) return med[x.k + "|" + y.k];
+        if (med[y.k + "|" + x.k] != null) return -med[y.k + "|" + x.k];
+        return 0;
+      }
+      return Object.keys(T)
+        .map(function (k) {
+          return T[k];
+        })
+        .sort(function (x, y) {
+          if (y.pts !== x.pts) return y.pts - x.pts;
+          if (R.kolicnik) {
+            var kn = kol(y.za, y.pr) - kol(x.za, x.pr); // količnik nizov
+            if (kn) return kn;
+            var kt = kol(y.tz, y.tp) - kol(x.tz, x.tp); // količnik točk v nizih
+            if (kt) return kt;
+          } else {
+            var d = y.za - y.pr - (x.za - x.pr);
+            if (d) return d;
+          }
+          var h = medsebojno(y, x);
+          if (h) return h;
+          return x.k.localeCompare(y.k);
+        });
+    }
+
+    // Zadnji krog z odigrano tekmo - od njega se meri premik po lestvici
+    function zadnjiOdigraniKrog(list, faza) {
+      var k = null;
+      list.forEach(function (m) {
+        if (m.faza !== faza || m.krog === null || !played(m)) return;
+        if (SKRIT.test(m.opomba)) return; // registrirana tekma ni odigrana
+        if (k === null || m.krog > k) k = m.krog;
+      });
+      return k;
+    }
+
+    // Mesta na lestvici, kakršna so bila pred zadnjim odigranim krogom
+    function prejsnjaMesta(list, faza) {
+      var zk = zadnjiOdigraniKrog(list, faza),
+        mesta = {};
+      if (zk === null) return mesta;
+      var prej = standings(list, faza, zk - 1);
+      if (
+        !prej.some(function (r) {
+          return r.t > 0;
+        })
+      )
+        return mesta;
+      prej.forEach(function (r, i) {
+        mesta[r.k] = i;
+      });
+      return mesta;
+    }
+
+    function premik(prej, k, i) {
+      if (prej[k] == null || prej[k] === i) return "";
+      return prej[k] > i
+        ? '<span class="usl-mv up" title="napredoval">&#9650;</span>'
+        : '<span class="usl-mv down" title="nazadoval">&#9660;</span>';
+    }
+
+    // Količnik po pravilniku: brez porazov je "max.", brez odigranega pa 0,
+    // da se ekipa brez tekem ne izenači z vsemi ostalimi.
+    function kol(a, b) {
+      return b ? a / b : a ? Infinity : 0;
+    }
+    function kolStr(a, b, dec) {
+      if (!b) return a ? "max." : "0";
+      if (!a) return "0";
+      var v = a / b;
+      return (
+        dec ? v.toFixed(dec) : String(Math.round(v * 1000) / 1000)
+      ).replace(".", ",");
+    }
+
+    function renderLestvica(list) {
+      var R = RULES[state.sport],
+        out = "",
+        jeCrta = false;
+      fazeOf(list).forEach(function (fz) {
+        if (state.faza !== "Vse" && fz !== state.faza) return;
+        var rows = standings(list, fz),
+          prej = prejsnjaMesta(list, fz);
+        var crta = PLAYOFF > 0 && rows.length > PLAYOFF;
+        var glava =
+          '<tr><th rowspan="2">Mesto</th><th rowspan="2" class="t">Ekipa</th>' +
+          '<th colspan="' +
+          (R.draw ? 3 : 2) +
+          '">Tekme</th>' +
+          (R.kolicnik
+            ? '<th colspan="3">Seti</th><th colspan="3">Točke v setih</th>'
+            : '<th colspan="3">' + R.diff + "</th>") +
+          '<th rowspan="2">Točke</th></tr><tr><th>Zmage</th>' +
+          (R.draw ? "<th>Neodločeno</th>" : "") +
+          "<th>Porazi</th>" +
+          (R.kolicnik
+            ? "<th>Zmage</th><th>Porazi</th><th>Količnik</th><th>Zmage</th><th>Porazi</th><th>Količnik</th>"
+            : "<th>Dani</th><th>Prejeti</th><th>Razlika</th>") +
+          "</tr>";
+        out +=
+          '<div class="usl-group">' +
+          esc(fz) +
+          '</div><div class="usl-wrap"><table><thead>' +
+          glava +
+          "</thead><tbody>";
+        rows.forEach(function (r, i) {
+          var d = r.za - r.pr;
+          var celice =
+            "<td>" +
+            r.z +
+            "</td>" +
+            (R.draw ? "<td>" + r.n + "</td>" : "") +
+            "<td>" +
+            r.p +
+            "</td>" +
+            (R.kolicnik
+              ? "<td>" +
+                r.za +
+                "</td><td>" +
+                r.pr +
+                "</td><td>" +
+                kolStr(r.za, r.pr) +
+                "</td>" +
+                "<td>" +
+                r.tz +
+                "</td><td>" +
+                r.tp +
+                "</td><td>" +
+                kolStr(r.tz, r.tp, 3) +
+                "</td>"
+              : "<td>" +
+                r.za +
+                "</td><td>" +
+                r.pr +
+                "</td><td>" +
+                (d > 0 ? "+" : "") +
+                d +
+                "</td>");
+          out +=
+            "<tr" +
+            (crta && i === PLAYOFF - 1 ? ' class="cut"' : "") +
+            ">" +
+            '<td class="r">' +
+            premik(prej, r.k, i) +
+            (i + 1) +
+            ".</td>" +
+            '<td class="t">' +
+            krogec(r.k) +
+            "</td>" +
+            celice +
+            '<td class="p">' +
+            r.pts +
+            "</td></tr>";
+        });
+        out += "</tbody></table></div>";
+        if (crta) jeCrta = true;
+      });
+      // Ekipa, ki je izstopila, v registriranih tekmah nastopa kot poraženec.
+      var izstop = {};
+      list.forEach(function (m) {
+        if (!SKRIT.test(m.opomba) || !played(m)) return;
+        izstop[m.rd < m.rg ? m.d : m.g] = 1;
+      });
+      var ven = Object.keys(izstop).sort();
+      return (
+        out +
+        '<div class="usl-note">' +
+        (jeCrta ? "Ekipe nad črto se uvrstijo v končnico. " : "") +
+        (ven.length
+          ? (ven.length === 1 ? "Ekipa " : "Ekipe ") +
+            ven.join(", ") +
+            (ven.length === 1 ? " je izstopila" : " so izstopile") +
+            " iz tekmovanja; preostale tekme so registrirane z 2:0 za nasprotnika" +
+            " in na razporedu niso prikazane. "
+          : "") +
+        R.note +
+        "</div>"
+      );
+    }
+
+    function igralecCell(r) {
+      return (
+        '<td class="t"><div class="usl-player">' +
+        (r.ekipa ? krogec(r.ekipa) : "") +
+        '<span class="usl-ime">' +
+        esc(r.igralec) +
+        "</span></div></td>"
+      );
+    }
+
+    // Lista strelcev. Enako število golov pomeni enako mesto.
+    var STRELCI_KRATKO = 10;
+    function renderStrelci() {
+      var vrste = strelci.slice().sort(function (a, b) {
+        return b.goli - a.goli || a.igralec.localeCompare(b.igralec, "sl");
+      });
+      if (!vrste.length)
+        return '<div class="usl-msg">Lista strelcev še ni objavljena.</div>';
+      var vse = state.vsiStrelci || vrste.length <= STRELCI_KRATKO + 2;
+      var mesto = 0,
+        prejGoli = null,
+        out = "";
+      (vse ? vrste : vrste.slice(0, STRELCI_KRATKO)).forEach(function (r, i) {
+        if (r.goli !== prejGoli) {
+          mesto = i + 1;
+          prejGoli = r.goli;
+        }
+        out +=
+          '<tr><td class="r">' +
+          mesto +
+          ".</td>" +
+          igralecCell(r) +
+          '<td class="p">' +
+          r.goli +
+          "</td></tr>";
+      });
+      return (
+        '<div class="usl-wrap"><table><thead><tr><th>Mesto</th>' +
+        '<th class="t">Igralec</th><th>Goli</th></tr></thead><tbody>' +
+        out +
+        "</tbody></table></div>" +
+        (vse
+          ? ""
+          : '<div class="usl-vec"><button type="button" class="usl-chip" data-vse="1">Prikaži vse (' +
+            vrste.length +
+            ")</button></div>") +
+        '<div class="usl-note">Skupno število golov v tekočem tekmovanju. ' +
+        "Pri enakem številu golov so igralci na istem mestu, razvrščeni po imenu.</div>"
+      );
+    }
+
+    // Kazni so brez kroga, zato na lestvico ne vplivajo; odbitek točk za
+    // neopravičen izostanek še naprej pride iz stolpca opomba v preglednici.
+    function kazenOpis(r) {
+      var v = (r.vrsta || "").trim();
+      if (r.prepoved)
+        return (
+          "Prepoved igranja" +
+          (v && v !== "prepoved igranja" ? " – " + v : "")
+        );
+      if (!v) return state.sport === "Košarka" ? "Tehnična napaka" : "Kazen";
+      if (/^rumen/i.test(v)) return "Rumen karton";
+      if (/^rde/i.test(v)) return "Rdeč karton";
+      return v.charAt(0).toUpperCase() + v.slice(1);
+    }
+
+    function renderKazni() {
+      var vrste = kazni.filter(function (r) {
+        return !r.sport || r.sport === state.sport;
+      });
+      if (!vrste.length)
+        return (
+          '<div class="usl-msg">Pri tem športu ni evidentiranih kazni.</div>'
+        );
+      vrste.sort(function (a, b) {
+        return (
+          (a.prepoved ? 1 : 0) - (b.prepoved ? 1 : 0) ||
+          a.igralec.localeCompare(b.igralec, "sl")
+        );
+      });
+      var out = "";
+      vrste.forEach(function (r) {
+        out += "<tr>" + igralecCell(r) + "<td>" + esc(kazenOpis(r)) + "</td></tr>";
+      });
+      return (
+        '<div class="usl-wrap"><table><thead><tr><th class="t">Igralec</th>' +
+        "<th>Kazen</th></tr></thead><tbody>" +
+        out +
+        "</tbody></table></div>" +
+        '<div class="usl-note">Evidenca kazni, ki jo vodi koordinator lige. ' +
+        "Na lestvico ne vpliva; odbitek točk za neopravičen izostanek je zapisan pri tekmi.</div>"
+      );
+    }
+
+    // Puščici ob traku krogov: skrijeta se, ko ni kaj drsati, in ugasneta na koncih.
+    function osveziPuscice() {
+      var trak = root.querySelector(".usl-rounds");
+      if (!trak) return;
+      var prej = root.querySelector('.usl-nav[data-nav="-1"]');
+      var nasl = root.querySelector('.usl-nav[data-nav="1"]');
+      var max = trak.scrollWidth - trak.clientWidth;
+      var skrij = max <= 2;
+      if (prej) {
+        prej.style.display = skrij ? "none" : "";
+        prej.disabled = trak.scrollLeft <= 2;
+      }
+      if (nasl) {
+        nasl.style.display = skrij ? "none" : "";
+        nasl.disabled = trak.scrollLeft >= max - 2;
+      }
+    }
+
+    function render() {
+      var list = sportMatches();
+      // Registrirane tekme se štejejo na lestvici, na razporedu in med rezultati
+      // pa jih ni, zato ima razpored svojo, filtrirano listo.
+      var vidne = list.filter(function (t) {
+        return !SKRIT.test(t.opomba);
+      });
+      // Zavihek Strelci se izriše samo pri športu, za katerega se lista vodi.
+      var zavihki = [
+        ["tekme", "Tekme"],
+        ["lestvica", "Lestvica"],
+      ];
+      if (STRELCI_URL && state.sport === STRELCI_SPORT)
+        zavihki.push(["strelci", "Strelci"]);
+      if (KAZNI_URL && KAZNI_SPORTS.indexOf(state.sport) >= 0)
+        zavihki.push(["kazni", "Kazni"]);
+      if (
+        !zavihki.some(function (z) {
+          return z[0] === state.view;
+        })
+      )
+        state.view = "tekme";
+      var jeTabela = state.view === "tekme" || state.view === "lestvica";
+      if (
+        state.krog === null ||
+        !vidne.some(function (t) {
+          return t.krog === state.krog;
+        })
+      )
+        state.krog = defaultKrog(vidne);
+      var faze = fazeOf(vidne);
+      if (state.faza !== "Vse" && faze.indexOf(state.faza) < 0)
+        state.faza = "Vse";
+
+      var h =
+        '<div class="usl-sports">' +
+        SPORTS.map(function (s) {
+          return (
+            '<button type="button" class="usl-sport' +
+            (s === state.sport ? " on" : "") +
+            '" data-sport="' +
+            esc(s) +
+            '">' +
+            esc(TITLES[s]) +
+            "</button>"
+          );
+        }).join("") +
+        "</div>";
+
+      h +=
+        '<div class="usl-head"><div class="usl-title">' +
+        esc(TITLES[state.sport]) +
+        "</div>" +
+        '<div class="usl-sub">' +
+        (state.view === "tekme"
+          ? "Razpored in rezultati po krogih"
+          : state.view === "lestvica"
+          ? "Lestvica"
+          : state.view === "strelci"
+          ? "Najboljši strelci"
+          : "Kartoni in kazni") +
+        "</div>";
+      if (state.view === "tekme") {
+        var po = povzetekKrogov(vidne);
+        h +=
+          '<div class="usl-nav-wrap">' +
+          '<button type="button" class="usl-nav" data-nav="-1" aria-label="Prejšnji krogi">&#8249;</button>' +
+          '<div class="usl-rounds">' +
+          rounds(vidne)
+            .map(function (k) {
+              var o = po[k];
+              return (
+                '<button type="button" class="usl-round' +
+                (k === state.krog ? " on" : "") +
+                '" data-krog="' +
+                k +
+                '"><b>' +
+                k +
+                ". krog</b><span>" +
+                obdobje(o) +
+                "</span><span>" +
+                stTekem(o ? o.n : 0) +
+                "</span></button>"
+              );
+            })
+            .join("") +
+          "</div>" +
+          '<button type="button" class="usl-nav" data-nav="1" aria-label="Naslednji krogi">&#8250;</button>' +
+          "</div>";
+      }
+      h +=
+        '<div class="usl-tabs">' +
+        zavihki
+          .map(function (z) {
+            return (
+              '<button type="button" class="usl-tab' +
+              (z[0] === state.view ? " on" : "") +
+              '" data-view="' +
+              z[0] +
+              '">' +
+              z[1] +
+              "</button>"
+            );
+          })
+          .join("") +
+        "</div></div>";
+
+      h += '<div class="usl-body">';
+      if (jeTabela && faze.length > 1) {
+        h +=
+          '<div class="usl-filter">' +
+          ["Vse"]
+            .concat(faze)
+            .map(function (f) {
+              return (
+                '<button type="button" class="usl-chip' +
+                (f === state.faza ? " on" : "") +
+                '" data-faza="' +
+                esc(f) +
+                '">' +
+                esc(f) +
+                "</button>"
+              );
+            })
+            .join("") +
+          "</div>";
+      }
+      if (state.view === "strelci") h += renderStrelci();
+      else if (state.view === "kazni") h += renderKazni();
+      else
+        h += list.length
+          ? state.view === "tekme"
+            ? renderTekme(vidne)
+            : renderLestvica(list)
+          : '<div class="usl-msg">Za ta šport še ni razporeda.</div>';
+      h += "</div>";
+      root.innerHTML = h;
+
+      if (BANNER) {
+        var head = root.querySelector(".usl-head");
+        if (head)
+          head.style.backgroundImage =
+            "linear-gradient(90deg,rgba(1,74,102,.74) 0%,rgba(1,74,102,.74) 100%),url(" +
+            JSON.stringify(BANNER) +
+            ")";
+      }
+
+      var trak = root.querySelector(".usl-rounds");
+      if (trak) {
+        trak.addEventListener("scroll", osveziPuscice);
+        var on = trak.querySelector(".usl-round.on");
+        if (on) {
+          trak.style.scrollBehavior = "auto"; // prvo postavitev brez animacije
+          trak.scrollLeft =
+            on.offsetLeft - trak.clientWidth / 2 + on.clientWidth / 2;
+          trak.style.scrollBehavior = "";
+        }
+        osveziPuscice();
+      }
+    }
+
+    function obKliku(e) {
+      var b = e.target.closest("button");
+      if (!b) return;
+      if (b.dataset.nav) {
+        // drsenje traku krogov, brez ponovnega izrisa
+        var trak = root.querySelector(".usl-rounds");
+        if (trak)
+          trak.scrollLeft +=
+            Number(b.dataset.nav) * Math.max(180, trak.clientWidth * 0.8);
+        return;
+      }
+      if (b.dataset.vse) {
+        state.vsiStrelci = true;
+        render();
+        return;
+      }
+      if (b.dataset.sport) {
+        state.sport = b.dataset.sport;
+        state.krog = null;
+        state.faza = "Vse";
+        state.vsiStrelci = false;
+      } else if (b.dataset.view) {
+        state.view = b.dataset.view;
+        state.vsiStrelci = false;
+      } else if (b.dataset.krog) state.krog = Number(b.dataset.krog);
+      else if (b.dataset.faza) state.faza = b.dataset.faza;
+      else return;
+      render();
+    }
+
+    function refresh() {
+      return load().then(function (novo) {
+        if (novo) render();
+      });
+    }
+
+    // Ustavi vse, kar teče v ozadju. Pokliče se samo, ko bloka ni več na strani,
+    // gostitelj (npr. WordPress gradnik) pa lahko tudi sam: document.getElementById('usl-liga').uslStop()
+    function ustavi() {
+      if (timer) {
+        clearInterval(timer);
+        timer = null;
+      }
+      window.removeEventListener("resize", osveziPuscice);
+      document.removeEventListener("visibilitychange", obVidnosti);
+      root.removeEventListener("click", obKliku);
+      tekme = [];
+      ekipe = {};
+      podpis = "";
+      delete root.dataset.uslInit;
+    }
+    root.uslStop = ustavi;
+
+    function obVidnosti() {
+      if (!document.hidden && Date.now() - zadnjic > SVEZE)
+        refresh().catch(function () {});
+    }
+
+    function tik() {
+      if (!document.contains(root)) {
+        ustavi();
+        return;
+      } // bloka ni več na strani
+      if (document.hidden) return; // v skritem zavihku ne hodimo po podatke
+      refresh().catch(function () {});
+    }
+
+    root.addEventListener("click", obKliku);
+    window.addEventListener("resize", osveziPuscice);
+    document.addEventListener("visibilitychange", obVidnosti);
+    timer = setInterval(tik, SVEZE);
+
+    refresh().catch(function (e) {
+      root.innerHTML =
+        '<div class="usl-msg">Podatkov trenutno ni mogoče naložiti. Poskusite znova pozneje.</div>';
+      // Namig za urednika gre v konzolo, obiskovalec strani z njim nima kaj početi.
+      if (window.console)
+        console.warn(
+          'USL liga: podatkov ni bilo mogoče naložiti. Preveri, ali je Google Sheet deljen kot "Anyone with the link – Viewer".',
+          e,
+        );
+    });
+  })();
 </script>
 </body>
 </html>

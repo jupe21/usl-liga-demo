@@ -4,3 +4,5 @@
 *.png binary
 *.svg text eol=lf
 *.xlsx binary
+# CSV pustimo tak, kot pride iz Excela (BOM, CRLF), da je zgled verodostojen
+*.csv -text
